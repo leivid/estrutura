@@ -91,20 +91,16 @@ void ExcluiAluno(TPilha *pilha,TFila *fila_notas){
 	getch();
 }
 
-void ExcluiNotaAluno(TPilha *pilha,TFila *fila_notas){
-	int temnota = -1;
-	for(int j = 0; j < fila_notas->tamanho_fila; j++ ){
-		if(pilha->alunos[pilha->topo].cod_aluno == fila_notas->notas[j].fk_cod_aluno){
-			temnota++;
-			break;
+void ExcluiNota(TPilha *pilha,TFila *fila_notas){
+	
+	if (fila_notas->tamanho_fila > 0){
+		for(int j = 0; j < fila_notas->tamanho_fila; j++ ){
+			fila_notas->notas[j] = fila_notas->notas[j + 1];
 		}
-	}
-
-	if(temnota == -1){
-		pilha->topo--;
-		printf("\n Um aluno excluido com sucesso!\n");
+		fila_notas->tamanho_fila--;
+		printf("\n Nota excluida com sucesso!\n");
 	}else{
-		printf("\n Este aluno nao pode ser excluido, pois possui notas !\n");	
+		printf("\n Nao foi possivel pois nao possui notas !\n");	
 	}
 	getch();
 }
@@ -137,7 +133,7 @@ void InsereNotas(TPilha *pilha_alunos,TFila *fila_notas){
 		printf("\n * Digite o codigo do aluno *\n");
 		scanf("%d",&aux_cod);
 		achou = Pesquisa_na_pilha(pilha_alunos,aux_cod);
-		
+
 		//veruificar sealuno estana pilha
 		if (achou != -1){
 			do{
@@ -166,14 +162,14 @@ void InsereNotas(TPilha *pilha_alunos,TFila *fila_notas){
 void CalculaMedia(TPilha *pilha_alunos,TFila *fila_notas){
 	int achou,aux_cod,continua;
 	float media,soma = 0,contador = 0;
-	
+
 	do{
 		LimpaTela();
 		achou = -1;
-		
+
 		printf("\nDigite o codigo do aluno a consulta: \n");
 		scanf("%d",&aux_cod);
-		
+
 		achou = Pesquisa_na_pilha(pilha_alunos,aux_cod);
 		if(achou != -1){
 			printf("\n\nAluno: %s cod: %d",pilha_alunos->alunos[achou].nome_aluno,pilha_alunos->alunos[achou].cod_aluno);
@@ -204,7 +200,7 @@ void menu(){
 	printf("\n3-	Calcular média de um aluno");
 	printf("\n4-	Listar os nomes dos alunos sem nota");
 	printf("\n5-	Excluir aluno");
-	printf("\n6-	Alterar nota");
+	printf("\n6-	Excluir nota");
 	printf("\n7-	Exiba lista:");
 	printf("\n8-	Exiba lista com notas:");
 	printf("\n0-	Sair\n");//voltar para 7 antes de entregar
@@ -218,7 +214,7 @@ int main()
 	TFila fila_notas;
 	pilha_alunos.topo = -1;
 	fila_notas.tamanho_fila = 0;
-	
+
 	do{
 		menu();
 		scanf("%d",&opcao);
@@ -228,10 +224,10 @@ int main()
 			case 3: CalculaMedia(&pilha_alunos,&fila_notas);break;
 			case 4: AlunosSemNotas(&pilha_alunos,&fila_notas);break;
 			case 5: ExcluiAluno(&pilha_alunos,&fila_notas);break;
+			case 6: ExcluiNota(&pilha_alunos,&fila_notas);break;
 			case 7: ExibeListas(&pilha_alunos);break;
 			case 8: ExibeListasNotas(&pilha_alunos,&fila_notas);break;
 			case 0:break;
 		}
 	}while(opcao != 0);
 }
-
