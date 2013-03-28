@@ -195,15 +195,16 @@ void CalculaMedia(TPilha *pilha_alunos,TFila *fila_notas){
 void menu(){
 	LimpaTela();
 	printf("\n* Escolha uma opcao do menu *\n");
+	printf("\n0-	Exiba lista:");
 	printf("\n1-	Cadastrar aluno");
 	printf("\n2-	Cadastrar nota");
 	printf("\n3-	Calcular média de um aluno");
 	printf("\n4-	Listar os nomes dos alunos sem nota");
 	printf("\n5-	Excluir aluno");
 	printf("\n6-	Excluir nota");
-	printf("\n7-	Exiba lista:");
-	printf("\n8-	Exiba lista com notas:");
-	printf("\n0-	Sair\n");//voltar para 7 antes de entregar
+	printf("\n7-	Sair");
+	printf("\n8-	Exiba lista com notas:\n");
+	
 }
 
 int main()
@@ -219,15 +220,15 @@ int main()
 		menu();
 		scanf("%d",&opcao);
 		switch(opcao){
+			case 0: ExibeListas(&pilha_alunos);break;
 			case 1: CadastraAluno(&pilha_alunos,&sequencia);break;
 			case 2: InsereNotas(&pilha_alunos,&fila_notas);break;
 			case 3: CalculaMedia(&pilha_alunos,&fila_notas);break;
 			case 4: AlunosSemNotas(&pilha_alunos,&fila_notas);break;
 			case 5: ExcluiAluno(&pilha_alunos,&fila_notas);break;
 			case 6: ExcluiNota(&pilha_alunos,&fila_notas);break;
-			case 7: ExibeListas(&pilha_alunos);break;
 			case 8: ExibeListasNotas(&pilha_alunos,&fila_notas);break;
-			case 0:break;
+			case 7: break;
 		}
-	}while(opcao != 0);
+	}while(opcao != 7);
 }
