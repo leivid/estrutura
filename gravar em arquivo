@@ -1,0 +1,38 @@
+// Exe042013.cpp : main project file.
+
+#include "stdafx.h"
+#include "stdio.h"
+#include "conio.h"
+#include "stdlib.h"
+#include "windows.h"
+
+using namespace System;
+
+int main()
+{
+  FILE *Ponteiro;
+	char Texto[50];
+	Ponteiro = fopen("Alunos.txt","a");
+	printf("Digite alguma coisa : ");
+	fflush(stdin);
+	gets(Texto);
+
+	fprintf(Ponteiro,"%s",Texto);
+	
+	fclose(Ponteiro);
+	
+	getch();
+	
+	Ponteiro = fopen("Alunos.txt","r");
+
+	while (fgets(Texto, 50, Ponteiro) != NULL){
+        int i = 10;
+	for(i=10; i<=20;i++){  
+		printf("%c", Texto[i]);
+	}
+	}
+	
+	getch();
+	fclose(Ponteiro);
+    return 0;
+}
