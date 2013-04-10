@@ -1,0 +1,77 @@
+// exe09.cpp : main project file.
+
+#include "stdafx.h"
+#include "conio.h"
+#include "stdio.h"
+#include "windows.h"
+
+
+using namespace System;
+
+typedef struct produtos{
+  int codigoProduto;
+	char nomeProduto[50];
+	float valorProduto;
+}TProduto;
+
+void cadastrar(){
+	FILE *ponteiro;
+	TProduto produto;
+	
+	
+	printf("\n Informe o codigo: ");
+	scanf("%d",&produto.codigoProduto);
+
+	printf("\n Informe o Nome do produto: ");
+	scanf("%s",&produto.nomeProduto);
+
+	printf("\n Informe o valor do produto: ");
+	scanf("%f",&produto.valorProduto);
+
+	ponteiro = fopen("produtos.txt","a+");//abrimos o arquivo
+
+	fseek(ponteiro,sizeof(TProduto),2); //posicionamos o ponteiro
+	//0 para primeira posicao 
+	//2- para o final 
+	//1- para entre elementos
+	fwrite(&produto,sizeof(TProduto),1,ponteiro);//grava no arquivo
+	
+	fclose(ponteiro);
+}
+
+void Exibir(){
+	FILE *ponteiro;
+	TProduto produto;
+	printf("\nModulo de Consulta: \n");
+	ponteiro = fopen("produtos.txt","r+");
+	rewind(ponteiro);
+	while(!feof(ponteiro)){
+		fread(&produto,sizeof(TProduto),1,ponteiro);
+		printf("\nCodigo....:%d",produto.codigoProduto);
+		printf("\nNome......:%s",produto.nomeProduto);
+		printf("\nValor.....:%.2f",produto.valorProduto);
+		printf("\n--------------------------\n");
+	}
+	getch();
+	fclose(ponteiro);
+}
+int main()
+{
+	int opcao;
+	do{
+		system("cls");
+		printf("\nEscolha uma opcao do menu: ");		
+		printf("\n1 - Cadastrar produto: \n");
+		printf("\n2 - Exibir lista: \n");
+
+		scanf("%d",&opcao);
+		
+		switch(opcao){
+			case 1: cadastrar(); break;			
+			case 2: Exibir(); break;
+			case 0:break;
+		}
+
+	}while(opcao != 0);
+    
+}
