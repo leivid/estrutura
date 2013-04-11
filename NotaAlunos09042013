@@ -1,0 +1,252 @@
+//-------------PROGRAMA EXEMPLO - ARQUIVO TEXTO EM C---------------//
+
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct reg_aluno
+{
+       int matricula;
+       char nome[31];
+       float notas[4];
+       int status;
+};
+struct reg_aluno aluno;
+
+FILE *arqalu;
+int i, nr_matric;
+char resp, tecla;
+int cont=1;
+
+void mostradados()
+{
+     printf("\nMatricula....: %d", aluno.matricula);
+     printf("\nNome.........: %s", aluno.nome);
+     for (i=0; i<4; i++)
+         printf("\nNota: %.1f", aluno.notas[i]);
+}
+
+int pesquisa(int numero)
+{
+    int achou = 0;
+    
+    rewind(arqalu); //retorna posi��o corrente do arquivo
+    
+    while (!feof(arqalu) && achou !=1)
+    {
+          fread(&aluno, sizeof(struct reg_aluno), 1, arqalu);
+          if (numero == aluno.matricula && aluno.status ==1)
+             achou = 1;
+    }
+    return(achou);
+}
+
+void cadastrar()
+{
+    arqalu=fopen ("cadalu.txt","a+");
+    printf("\n\nModulo de cadastramento\n");
+    printf("Digite os dados abaixo:\n");
+    printf("\nInforme o nr. da matricula: ");
+    scanf("%d", &nr_matric);
+    if (nr_matric != 0)
+    {
+         if (pesquisa(nr_matric) == 1)
+         {
+            mostradados();
+            printf("\nCadastro ja existe");
+         }
+         else
+         {
+             //localiza posica��o para gravar
+             fseek(arqalu, sizeof(struct reg_aluno), 2);
+             
+             //grava registro
+             fflush(stdin);
+             printf("\nInforme nome do aluno: ");
+             gets(aluno.nome);
+             for (i=0; i<4; i++)
+             {
+                 fflush(stdin);
+                 printf("\nInforme %da. nota: ", i+1);
+                 scanf("%f", &aluno.notas[i]);
+             }
+             aluno.matricula = nr_matric;
+             aluno.status = 1;
+             fwrite(&aluno, sizeof(struct reg_aluno), 1, arqalu);
+             cont++;
+         }
+      }
+      fclose(arqalu);
+}
+
+int consultar()
+{
+    
+    arqalu=fopen ("cadalu.txt","r+");
+    printf("\n\nModulo de Consulta\n");
+    do
+    {
+        printf("\nDigite 0 para voltar ao menu: ");
+        printf("\nDigite o numero de matricula: ");
+        fflush(stdin);
+        scanf("%d", &nr_matric);
+        if (nr_matric != 0)
+        {
+            if (pesquisa(nr_matric) == 1)
+            {
+                mostradados();
+            }
+            else
+            {
+                printf("\nEste registro nao esta cadastrado");
+            }
+        }
+    }while (nr_matric != 0);
+    fclose (arqalu);
+}
+
+void listar()
+{
+     //rewind(arqalu); //retorna posi��o corrente do arquivo
+    
+     arqalu=fopen ("cadalu.txt","r+");
+
+     while (fread(&aluno, sizeof(struct reg_aluno), 1, arqalu))
+     {
+          if (aluno.status == 1)
+          {
+             printf("\nMatricula....: %d", aluno.matricula);
+             printf("\nNome.........: %s", aluno.nome);
+             for (i=0; i<4; i++)
+                 printf("\nNota: %.1f", aluno.notas[i]);
+             printf("\n---------------------------------------------");
+          }
+     }
+     fclose(arqalu);
+}
+
+void alterar()
+{
+    char resposta;
+    int numero;
+    int tamanho=0;
+    
+    arqalu=fopen ("cadalu.txt","r+");
+    //r+ = abre um arquivo para atualizacao
+    printf("\n\nALTERAR REGISTRO\n\n");
+    do
+    {
+        printf("Digite o numero de matricula...");
+        scanf("%d",&numero);
+    
+        rewind(arqalu);
+        fread(&aluno, sizeof(struct reg_aluno),1,arqalu);
+        while (!feof(arqalu) && aluno.matricula!= numero)
+        {
+              fread(&aluno,sizeof(struct reg_aluno),1,arqalu);
+              tamanho++;
+        }
+        if (feof(arqalu))
+           printf ("Aluno n�o foi encontrado...\n\n");
+        else
+        {
+            mostradados();
+            rewind(arqalu);
+            //fseek = posiciona o cursor (ponteiro) em um endereco especifico, tornando possivel leitura e escrita aleatoria
+            fseek(arqalu, tamanho*(sizeof (struct reg_aluno)),1); 
+            printf("\n\nNovo nome.....");
+            fflush(stdin);
+            gets(aluno.nome);
+            for (i=0; i<4; i++)
+            {
+                 fflush(stdin);
+                 printf("\nInforme nova %da. nota: ", i+1);
+                 scanf("%f", &aluno.notas[i]);
+            }
+            fwrite(&aluno,sizeof(struct reg_aluno),1,arqalu);
+            printf("Operacao concluida....\n\n");
+        }
+        
+        printf("Nova alteracao? (s/n)...");
+        fflush(stdin);
+        scanf("%c",&resposta);
+    }while (resposta == 'S' || resposta == 's');
+    fclose(arqalu);
+}
+
+
+
+
+void excluir()
+{
+    char resposta;
+    int numero;
+    int tamanho=0;
+    
+    arqalu=fopen ("cadalu.txt","r+");
+    //r+ = abre um arquivo para atualizacao
+    printf("\n\nEXCLUIR REGISTRO\n\n");
+    do
+    {
+        printf("Digite o numero de matricula...");
+        scanf("%d",&numero);
+    
+        fread(&aluno, sizeof(struct reg_aluno),1,arqalu);
+        while (!feof(arqalu) && aluno.matricula!= numero)
+        {
+              fread(&aluno,sizeof(struct reg_aluno),1,arqalu);
+              tamanho++;
+        }
+        if (feof(arqalu))
+           printf ("Aluno n�o foi encontrado...\n\n");
+        else
+        {
+            mostradados();
+            rewind(arqalu);
+            //fseek = posiciona o cursor (ponteiro) em um endereco especifico, tornando possivel leitura e escrita aleatoria
+            fseek(arqalu, tamanho*(sizeof (struct reg_aluno)),1);
+            aluno.status = 0;
+            fwrite(&aluno,sizeof(struct reg_aluno),1,arqalu);
+            printf("Operacao concluida....\n\n");
+        }
+        
+        printf("Nova exclusao? (s/n)...");
+        fflush(stdin);
+        scanf("%c",&resposta);
+    }while (resposta == 'S' || resposta == 's');
+    fclose(arqalu);
+}              
+
+
+int main()
+{
+    int opcao;
+    if ((arqalu = fopen ("cadalu.txt", "r+")) == NULL)
+    {
+       arqalu = fopen("cadalu.txt", "a+");
+       fwrite(&aluno, sizeof(struct reg_aluno), 1, arqalu);
+    }
+    do
+    {
+       //system("cls");
+       printf("------Menu de opcoes------\n\n");
+       printf("\nCadastrar.............: [1]");
+       printf("\nConsultar.............: [2]");
+       printf("\nListar................: [3]");
+       printf("\nAlterar...............: [4]");
+       printf("\nExcluir...............: [5]");
+       printf("\nSair..................: [0]");
+       printf("\nEntre com a opcao: --> ");
+       scanf("%d", &opcao);
+       switch (opcao)
+       {
+              case 1: cadastrar(); break;
+              case 2: consultar(); break;
+              case 3: listar(); break;
+              case 4: alterar(); break;
+              case 5: excluir(); break;
+       }
+    }while(opcao != 0);
+    fclose(arqalu);
+}      
