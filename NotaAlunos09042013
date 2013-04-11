@@ -12,7 +12,7 @@ struct reg_aluno
        int matricula;
        char nome[31];
        float notas[4];
-          float media;
+	   float media;
        int status;
 };
 struct reg_aluno aluno;
