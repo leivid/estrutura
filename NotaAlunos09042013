@@ -1,15 +1,18 @@
 //-------------PROGRAMA EXEMPLO - ARQUIVO TEXTO EM C---------------//
 
-#include <stdio.h>
-#include <conio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "stdafx.h"
+#include "stdio.h"
+#include "conio.h"
+#include "stdlib.h"
+#include "string.h"
+
 
 struct reg_aluno
 {
        int matricula;
        char nome[31];
        float notas[4];
+          float media;
        int status;
 };
 struct reg_aluno aluno;
@@ -44,6 +47,7 @@ int pesquisa(int numero)
 
 void cadastrar()
 {
+	float soma = 0;
     arqalu=fopen ("cadalu.txt","a+");
     printf("\n\nModulo de cadastramento\n");
     printf("Digite os dados abaixo:\n");
@@ -70,7 +74,9 @@ void cadastrar()
                  fflush(stdin);
                  printf("\nInforme %da. nota: ", i+1);
                  scanf("%f", &aluno.notas[i]);
+				 soma = aluno.notas[i] + soma;
              }
+			 aluno.media = soma/4;
              aluno.matricula = nr_matric;
              aluno.status = 1;
              fwrite(&aluno, sizeof(struct reg_aluno), 1, arqalu);
@@ -80,7 +86,7 @@ void cadastrar()
       fclose(arqalu);
 }
 
-int consultar()
+void consultar()
 {
     
     arqalu=fopen ("cadalu.txt","r+");
@@ -118,9 +124,10 @@ void listar()
           {
              printf("\nMatricula....: %d", aluno.matricula);
              printf("\nNome.........: %s", aluno.nome);
+			 printf("\nMedia.........: %0.2f", aluno.media);
              for (i=0; i<4; i++)
                  printf("\nNota: %.1f", aluno.notas[i]);
-             printf("\n---------------------------------------------");
+             printf("\n");
           }
      }
      fclose(arqalu);
