@@ -17,8 +17,8 @@ typedef struct produtos{
 void cadastrar(){
 	FILE *ponteiro;
 	TProduto produto;
-	
-	
+
+
 	printf("\n Informe o codigo: ");
 	scanf("%d",&produto.codigoProduto);
 
@@ -35,7 +35,7 @@ void cadastrar(){
 	//2- para o final 
 	//1- para entre elementos
 	fwrite(&produto,sizeof(TProduto),1,ponteiro);//grava no arquivo
-	
+
 	fclose(ponteiro);
 }
 
@@ -45,8 +45,16 @@ void Exibir(){
 	printf("\nModulo de Consulta: \n");
 	ponteiro = fopen("produtos.txt","r+");
 	rewind(ponteiro);
-	while(!feof(ponteiro)){
+	/*while(!feof(ponteiro)){
 		fread(&produto,sizeof(TProduto),1,ponteiro);
+		printf("\nCodigo....:%d",produto.codigoProduto);
+		printf("\nNome......:%s",produto.nomeProduto);
+		printf("\nValor.....:%.2f",produto.valorProduto);
+		printf("\n--------------------------\n");
+	}*/
+
+	while(fread(&produto,sizeof(TProduto),1,ponteiro)){
+		
 		printf("\nCodigo....:%d",produto.codigoProduto);
 		printf("\nNome......:%s",produto.nomeProduto);
 		printf("\nValor.....:%.2f",produto.valorProduto);
@@ -65,7 +73,7 @@ int main()
 		printf("\n2 - Exibir lista: \n");
 
 		scanf("%d",&opcao);
-		
+
 		switch(opcao){
 			case 1: cadastrar(); break;			
 			case 2: Exibir(); break;
