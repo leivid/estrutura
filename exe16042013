@@ -1,0 +1,106 @@
+// Aula 09-04-13.cpp : main project file.
+
+#include <conio.h>
+#include <stdio.h>
+
+typedef struct produtos
+{
+  int codigoProduto;
+	char nomeProduto[40];
+	float valorProduto;
+}TProduto;
+
+typedef struct lista{
+    TProduto elementos;            
+}TLista;
+
+FILE *ponteiro;
+
+void cadastrar()
+{
+	
+	TProduto produto;
+
+	printf("\n Informe codigo: ");
+	scanf("%d", &produto.codigoProduto);
+
+	printf("\n Informe nome do produto: ");
+	fflush(stdin);
+	gets(produto.nomeProduto);
+
+	printf("\n Informe valor: ");
+	scanf("%f", &produto.valorProduto);
+	
+	ponteiro = fopen("produtos.txt", "ab+");
+
+	fseek(ponteiro, sizeof(TProduto), 2);
+
+	fwrite(&produto, sizeof(TProduto), 1, ponteiro);
+
+	fclose(ponteiro);
+}
+
+void listar()
+{
+	
+	TProduto produto;
+    TLista lista[10];
+    
+	ponteiro = fopen ("produtos.txt", "rb+");
+	
+	while (fread(&produto, sizeof(TProduto), 1, ponteiro)) 
+   {
+      printf("\n Codigo do Produto: %d", produto.codigoProduto);
+		printf("\n Nome do Produto: %s", produto.nomeProduto);
+		printf("\n Valor do Produto: %0.2f", produto.valorProduto);
+		printf("\n ----------------------------------------------");
+   }
+	getch();
+	fclose(ponteiro);
+}
+
+void listarOrdenado()
+{
+    int tamanho;
+	
+	TProduto produto;
+
+	ponteiro = fopen ("produtos.txt", "rb+");
+	
+	while (fread(&produto, sizeof(TProduto), 1, ponteiro)) 
+   {
+      printf("\n Codigo do Produto: %d", produto.codigoProduto);
+		printf("\n Nome do Produto: %s", produto.nomeProduto);
+		printf("\n Valor do Produto: %0.2f", produto.valorProduto);
+		printf("\n ----------------------------------------------");
+   }
+	getch();
+	fclose(ponteiro);
+}
+
+
+int main()
+{
+	int opcao;
+    
+    do
+    {
+       printf("\n\n------Menu de opcoes------\n\n");
+       printf("\nCadastrar.............: [1]");
+       printf("\nConsultar.............: [2]");
+       printf("\nListar................: [3]");
+       printf("\nListar Ordenado.......: [4]");
+       printf("\nExcluir...............: [5]");
+       printf("\nSair..................: [0]");
+       printf("\nEntre com a opcao: --> ");
+       scanf("%d", &opcao);
+       switch (opcao)
+       {
+              case 1: cadastrar(); break;
+              //case 2: consultar(); break;
+              case 3: listar(); break;
+              case 4: listarOrdenado(); break;
+              //case 5: excluir(); break;
+       }
+    }while(opcao != 0);
+}      
