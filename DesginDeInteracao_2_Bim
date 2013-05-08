@@ -1,0 +1,138 @@
+Qual a importacia de envolver os usuários
+- Gerenciamento da expectatica
+  expectativas realisticas
+  sem surpresas nem desapontamentos
+  treinamento feito a tempo
+  comunicação, mas sem publicidade
+
+- Propriedade (ownership)
+  tornar os usuários stakeholders ativos
+  maior propabilidade de aceitar problemas
+  pode fazer uma grande diferença na aceitação.
+
+Graus de envolvimento do usuário
+- Membro do tune de design
+tempo integral: informações constantes,
+                porém perde contato com outros usuários tornando suas informações menos uteis.
+tempo parcial: informações irregulares porém bastante estressante, pois deve 
+               continuar com outras atividades do trabalho.
+
+Informativos e outros meios de comunicação
+-Alcança uma seleceção mais ampla de usuários(usa uma ferramenta que monitora..)
+-necessita de comunicaçãoo de ambos os lados
+
+Combinação dessas abordagens.
+
+(Caiu na prova) 
+A abordagem centrada no usuário é: 
+-foco antecipado no usuário(trazer ele para dentro da empresa)e nas tarefas: estudando 
+diretamente caracteristicas cognitivas e antropormóficas
+-MEDIÇÃO EMPÍRICA : trata de algo que consigo avaliar,testar e recolher dados, reações dos usuários 
+                    e performance com cenários, manuais e protótipos são observados, gravos e analisados.
+- design iterativo: quando problemas são encotrados nos testes em usuários, consertá-los e realizar mais testes.
+
+Foto antecipado no usuário e nas tarefas:
+* tarefas dos usuários e suas metas são a força motriz por tra´s do desenvolvimento
+*Comportamento e contexto de uso são estudos e o sistema é projetado para suportá-los
+*características do usuário são capturadas e o projeto deve suportá-las
+*Usuário são consultados durante o desenvolvimento
+
+o que é tarefa ?
+
+o contexto é tudo que está envolvido ao fazer alguma coisa, onde o usuário usa onde está porque quem que tipo..
+----------------------------------//--------------------------------
+Cai na prova..
+Quatro atividads básicas
+
+1 Identificar necessidades e estabelecer requisitos
+2 Desenvolver designs alternativos
+3 Construir versões interativas do design
+4 Avaliar os designs
+
+eu tenho uma necessidade pra satisfazer eu preciso dos requisitos.
+----------------------------------//--------------------------------
+questões práticas:
+
+Quem são os usuários/Stakeholders? são todos os envolvidos
+
+3 categorias de usuários
+primário: usa frequentement o produto
+secundário:ocasional ou por meio de outra pessoa
+terciário:afetado pela introdução do produto, ou influencia na compra do produto
+
+Quais são as capacidades do usuário?
+Seres humanos variam em muitras dimensões:
+-tamanho da mão pode alterar locais dos botões..
+-habilidades motoras podem afetar a adequação de certo dispositivos de entrada e saida
+-altura no projeto de um quiosque fisico
+-força - um brinquedo de criança deve necessitar pouca força para operar, porém mais força para trocar a bateria
+
+Quas são as necessidades?
+-usuários não sabem oq ue é possível
+-usuários geralmente não podem dizer o que eles precisam para atingir seus objetivos
+-ao invés disso, olhar para as tarefas :
+  * seu contexto
+  * quais informações os usuários precisam?
+  *quem colabora para realizar a tarefa?
+  * porque a tarefas é realizada da forma que é ?
+
+-produtos totalmente novos:
+  *podem ser oautadas em comportamentos existentes(celular,microondas).
+  * podem ser descritas como cenários futuros.
+
+De onde vêm as alternativas?
+-humanos preferem aquilo qu sabem como funciona
+-porém considerando alternativas é importante realizar variações
+-designers são treinados para tentar alternativas, engenheiros de software geralmente não.
+
+Como gerar alternativas?
+-'Dom e criatividade': perquisa e sítense
+-Procurar inspiração: procutar por protudos similares e olhar diferentes produtos.
+
+www.ideo.com eles criam as coisas... eles tem umas parafernalhas pra todo lado que as pessoas ficam brincando.
+
+Como escolher alternativas?
+*avaliacao com usuários, por exemplo protótipos
+
+Modelos de ciclo de vida
+*Mostram como as atividades são relacionadas
+*Modelos de ciclo de vida são:
+  -ferramentas de gerenaciamento
+  -Versões simplificadas da realidade
+*Existem muitos modelos de ciclo de vida,
+  -Da engenharia de software: cascata, espiral, JADRAD, Microsoft, agiles
+  - da IHC
+
+Um modelo simples do DI (pode cair na prova aquelas bolinhas na sequencia) 
+
+Modelo cascata
+
+Modelo espiral
+Caracteristicas importantes:
+-análise de risco
+-prototipação
+-framewokr  iterativo
+
+Cada parte da esprial
+
+Modelo RAD
+projeto inicia->JDA Workshops->
+
+Ciclo de vida em estrela
+Sugerido por Hartson e Hix(1989)
+
+Ciclo de vida da egenharia de usabilidade
+*Caracteristicas importantes:
+  -visão da egenharia de usabilidade
+  -Estagios para identificação de requisítos
+
+modelo ISO 13407
+
+
+ 
+
+
+
+
+
+  
