@@ -1,0 +1,150 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <windows.h>
+
+typedef struct Elemento{
+    int info;
+    struct Elemento *prox;
+}TElemento;
+
+TElemento *inicio;
+TElemento *fim;
+
+void menu(){
+    printf("\nOpcoes: \n\n");
+    printf(" 1 - Inserir novo elemento\n");
+    printf(" 2 - Listar todos os elementos\n");
+    printf(" 3 - Consutar os elementos\n");
+    printf(" 4 - Remover elementos\n");
+    printf(" 0 - para sair \n\n");
+    printf("Entre com a sua opcao: ");
+}
+
+void inicializaLista(){
+    inicio = NULL;
+    fim = NULL;
+}
+
+void inserirElementos(){
+    TElemento *novo;
+    novo = new TElemento;
+
+    printf("\n Informe um elemenct: ");
+    scanf("%d",&novo->info);
+    novo->prox = NULL; // inicializa o prox
+
+    if(inicio == NULL){
+        inicio = novo;
+        fim = novo;
+    }
+    else{
+        fim->prox = novo;
+        fim = novo;
+    }
+
+}
+
+void apresentarLista(){
+    TElemento *aux;
+
+    aux = inicio;
+
+    while(aux != NULL){
+        printf("\n Elemento: %d", aux->info);
+        aux = aux->prox;
+    }
+    getch();
+}
+
+TElemento *BuscaDado(int aNum){
+    TElemento *auxBusca;
+
+    if(inicio == NULL)
+        return NULL;
+
+    auxBusca = inicio;
+
+    while(auxBusca != NULL){
+        if(auxBusca->info == aNum)
+            return auxBusca;
+        else
+            auxBusca = auxBusca->prox;
+    }
+
+}
+
+void remover(){
+    int oNum;
+
+    TElemento *atual, *anterior;
+
+    printf("Informe numero a ser removido: ");
+    scanf("%d",&oNum);
+
+    if(inicio == NULL)
+        printf("Lista esta vazia manolo");
+    else{
+        atual = inicio;
+        anterior = inicio;
+
+        while(atual != NULL){
+            if(atual->info == oNum){
+                if(atual == inicio){
+                    inicio = inicio->prox;
+                    free(atual);
+                    break;
+                }
+                else{
+                    if(atual ==fim){
+                        fim = anterior;
+                        anterior->prox = atual->prox;
+                        free(atual);
+                        break;
+                    }
+                }
+            }else{
+                anterior = atual;
+                atual = atual->prox;
+            }
+        }
+    }
+
+}
+
+void consultar(){
+    system("cls");
+    int busca;
+    TElemento *aux;
+
+    printf("Informe numero a ser consultado");
+    scanf("%d",&busca);
+
+    aux = BuscaDado(busca);
+
+    if(aux != NULL)
+        printf("Achou o: %d. ",aux->info);
+    else
+        printf("Nao achou o num %d\n",busca);
+
+    getch();
+}
+
+
+int main(){
+    int opcao;
+    inicializaLista();
+    do{
+        menu ();
+        scanf("%d",&opcao);
+
+        switch(opcao){
+            case 1: inserirElementos();break;
+            case 2: apresentarLista();break;
+            case 3: consultar();break;
+            case 4: remover();break;
+            case 0:break;
+        }
+
+    }while(opcao != 0);
+}
