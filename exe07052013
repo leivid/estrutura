@@ -91,24 +91,27 @@ void remover(){
         while(atual != NULL){
             if(atual->info == oNum){
                 if(atual == inicio){
-                    inicio = inicio->prox;
+                    inicio = atual->prox;
                     free(atual);
                     break;
                 }
-                else{
+                else
                     if(atual ==fim){
                         fim = anterior;
-                        anterior->prox = atual->prox;
                         free(atual);
                         break;
-                    }
-                }
-            }else{
+                    }else{
                 anterior = atual;
                 atual = atual->prox;
+
+                anterior->prox = atual->prox;
+                free(atual);
             }
+            atual= atual->prox;
         }
     }
+
+}
 
 }
 
@@ -148,3 +151,33 @@ int main(){
 
     }while(opcao != 0);
 }
+
+
+/*
+Se elemento estiver no incio
+
+if(atual == inicio){
+    inicio = atual->prox;
+    free(atual)
+}
+
+Se elemento estiver entre outros elementos
+
+    while não encontrar elementos faca{
+        anterior = atual;
+        atual = atual->prox;
+
+//para excluir
+        anterior->prox = atual->prox;
+        free(atual);
+    }
+Se o elemento a ser excluido estiver no ponteiro fim:
+
+if(atual == fim){
+    fim = anterior;
+    free(atual);
+
+}
+
+
+*/
