@@ -88,14 +88,17 @@ void remover(){
         atual = inicio;
         anterior = inicio;
 
-        while(atual != NULL){
-            if(atual->info == oNum){
-                if(atual == inicio){
-                    inicio = atual->prox;
-                    free(atual);
-                    break;
-                }
-                else
+        if(atual == inicio){
+            inicio = atual->prox;
+            free(atual);
+        }
+        else
+        while(atual->info != oNum){
+
+            anterior = atual;
+            atual = atual->prox;
+           /* if(){
+
                     if(atual ==fim){
                         fim = anterior;
                         free(atual);
@@ -105,9 +108,17 @@ void remover(){
                 atual = atual->prox;
 
                 anterior->prox = atual->prox;
-                free(atual);
+
             }
             atual= atual->prox;
+            free(atual);
+        }*/
+        anterior->prox = atual->prox;
+
+        if(atual == fim){
+            fim = anterior;
+            free(atual);
+
         }
     }
 
@@ -151,6 +162,7 @@ int main(){
 
     }while(opcao != 0);
 }
+
 
 
 /*
