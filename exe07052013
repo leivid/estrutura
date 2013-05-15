@@ -87,41 +87,25 @@ void remover(){
     else{
         atual = inicio;
         anterior = inicio;
-
-        if(atual == inicio){
-            inicio = atual->prox;
-            free(atual);
+        if(atual->info == oNum){
+            if(atual == inicio){
+                inicio = atual->prox;
+                free(atual);
+            }
         }
         else
         while(atual->info != oNum){
 
             anterior = atual;
             atual = atual->prox;
-           /* if(){
 
-                    if(atual ==fim){
-                        fim = anterior;
-                        free(atual);
-                        break;
-                    }else{
-                anterior = atual;
-                atual = atual->prox;
-
-                anterior->prox = atual->prox;
-
-            }
-            atual= atual->prox;
-            free(atual);
-        }*/
-        anterior->prox = atual->prox;
-
-        if(atual == fim){
-            fim = anterior;
-            free(atual);
 
         }
-    }
-
+        anterior->prox = atual->prox;
+        if(atual == fim){
+            fim = anterior;
+        }
+        free(atual);
 }
 
 }
