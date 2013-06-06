@@ -1,0 +1,214 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+typedef struct Contato
+{
+        int codigo;
+        char nome[40];
+        char telefone[20];
+        struct Contato *proximo;
+}TContato;
+
+TContato *inicio;
+TContato *fim;
+
+int contador = 0;
+
+void inicializaLista()
+{
+     inicio = NULL;
+     fim = NULL;
+}
+
+void inserirContato()
+{
+     TContato *novoContato;
+
+     novoContato = new TContato;
+
+     contador++;
+     //atribuir código
+     novoContato->codigo = contador;
+     printf("\n Codigo: %d", novoContato->codigo);
+
+     //ler nome
+     printf("\n Nome: ");
+     fflush(stdin);
+     gets(novoContato->nome);
+
+     //ler telefone
+     printf("\n Telefone: ");
+     fflush(stdin);
+     gets(novoContato->telefone);
+
+     novoContato->proximo = NULL;
+
+     if (inicio == NULL)
+     {
+        inicio = novoContato;
+        fim = novoContato;
+     }
+     else
+     {
+         fim->proximo = novoContato;
+         fim = fim->proximo;
+     }
+}
+
+void apresentarContatos()
+{
+     TContato *aux;
+
+     aux = inicio;
+
+     while (aux!= NULL)
+     {
+           printf("\n\n Codigo: %d", aux->codigo);
+           printf("\n Nome: %s", aux->nome);
+           printf("\n Telefone: %s", aux->telefone);
+
+           aux = aux->proximo;
+     }
+     getch();
+}
+
+void excluirContato()
+{
+     int pesquisa;
+     TContato *atual;
+     TContato *anterior;
+
+     printf("\n Informe codigo do contato para exclusao: ");
+     scanf("%d", &pesquisa);
+
+     atual = inicio;
+     anterior = inicio;
+
+     //procurando código
+     while (atual!=NULL)
+     {
+           if (atual->codigo == pesquisa)
+              break;
+           else
+           {
+               anterior = atual;
+               atual = atual->proximo;
+           }
+     }
+
+
+     //excluir elemento
+     if (atual != NULL)
+     {
+         if (atual == inicio)
+         {
+             inicio = inicio->proximo;
+             free(atual);
+         }
+         else
+         {
+             anterior->proximo = atual->proximo;
+             if (atual == fim)
+             {
+                 fim = anterior;
+             }
+             free(atual);
+         }
+     }
+}
+
+void excluirContatoFila(){
+
+    TContato *aux;
+    aux = inicio;
+    inicio = inicio->proximo;
+    free(aux);
+
+}
+
+void InserirNoTopo(){
+    TContato *novoContato;
+    novoContato = new TContato;
+
+    contador++;
+     //atribuir código
+    novoContato->codigo = contador;
+    printf("\n Codigo: %d", novoContato->codigo);
+
+     //ler nome
+    printf("\n Nome: ");
+    fflush(stdin);
+    gets(novoContato->nome);
+
+     //ler telefone
+    printf("\n Telefone: ");
+    fflush(stdin);
+    gets(novoContato->telefone);
+
+    if(inicio == NULL){
+        inicio = novoContato;
+    }else{
+        novoContato->proximo = inicio;
+        inicio = novoContato;
+    }
+}
+
+void ExcluirTopo(){
+    TContato *aux;
+    aux = inicio;
+    inicio = inicio->proximo;
+    free(aux);
+}
+
+void ExibirTopo(){
+     TContato *aux;
+
+     aux = inicio;
+
+     do
+     {
+           printf("\n\n Codigo: %d", aux->codigo);
+           printf("\n Nome: %s", aux->nome);
+           printf("\n Telefone: %s", aux->telefone);
+
+           aux = aux->proximo;
+     }while(aux!= NULL);
+     getch();
+}
+
+int main()
+{
+    int opcao;
+
+    inicializaLista();
+
+    do
+    {
+        printf("\n 1 - Inserir contato");
+        printf("\n 2 - Apresentar contatos");
+        printf("\n 3 - Excluir contato");
+        printf("\n 4 - Excluir contato da fila");
+        printf("\n 5 - Inserir no topo");
+        printf("\n 6 - exibir pilha topo");
+        printf("\n 7 - excluir pilha topo");
+        printf("\n 0 - Sair");
+        printf("\n Escolha uma opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao)
+        {
+               case 1: inserirContato(); break;
+               case 2: apresentarContatos(); break;
+               case 3: excluirContato(); break;
+               case 4: excluirContatoFila(); break;
+               case 5: InserirNoTopo(); break;
+               case 6: ExibirTopo(); break;
+               case 7: ExcluirTopo(); break;
+        }
+    }while (opcao != 0);
+}
+
+
+
+
