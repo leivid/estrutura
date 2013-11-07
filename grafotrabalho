@@ -71,25 +71,79 @@ void imprimeMatriz()
         }
     }
 }
+
+void encontra_menor_caminho(int cidade_origem, int cidade_destino)
+{
+    int grafo_aux[6][7];
+    int distancia =0;
+
+    grafo_aux[0][0] = cidade_origem;
+
+    for(int i =0; i < 6; i++) // laco para verificar colunas
+    {
+
+        for(int j =0; j < 6; j++)
+        {
+            if(grafo_aux[0][j] == grafo_aux[0][i])
+                break;
+            else
+            {
+                j++;
+                if(grafo_aux[0][i] >0)
+                {
+                    grafo_aux[0][j] =i;
+                }
+            }
+
+            distancia = distancia + m[i][j];
+            if(cidade_destino == i){
+                break;
+            }
+
+        }
+    }
+
+
+    /*
+    if(m[cidade_origem][cidade_destino] != 0)
+    {
+        grafo_aux[0][0] = cidade_origem;
+
+        grafo_aux[0][1] = cidade_destino;
+        grafo_aux[0][6] = m[cidade_origem][cidade_destino];
+
+        printf("\n A distancia enter a cidade %d e a cidade %d eh de: %d",cidade_origem,cidade_destino,grafo_aux[0][6]);
+    }*/
+
+}
 int main()
 {
     int v1,v2, resultado;
     int sair;
+    int cidade_origem;
+    int cidade_destino;
+
     InicializaMatriz();
 
     system("cls");
 
     imprimeMatriz();
 
-    if(resultado == 0)
-    {
-        printf("\nNao foi encontrado nenhuma  adjacencia.");
-    }
+    printf("Grafo - menor caminho entre duas cidades\n\n");
+    printf("\nInforme a cidade origem");
+    scanf("%d",&cidade_origem);
 
-    printf("\npara sair digite 0 ou 1 para continuar.");
-    scanf("%d",&sair);
+    printf("\nInforme a cidade destino");
+    scanf("%d",&cidade_destino);
+
+    encontra_menor_caminho(cidade_origem,cidade_destino);
+
+
 
 
 
     return 0;
 }
+
+
+//se não for utilizar recursidvidade utilize pilhas rayovac
